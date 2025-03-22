@@ -77,7 +77,7 @@ El fetch devuelve el siguiente json:
 ```
 2. Obtener una carrera 
 
-```json
+```sh
 curl -X GET "http://tudominio.com/telecomaster/carreras/gitt" | jq
 //Tambien valdría poner 1 en vez de gitt
 //El jq es para que devuelva "bonito" el json
@@ -93,7 +93,7 @@ El resultado del fetch entonces es:
 }
 ```
 3. Actualizar carrera
-```json
+```sh
 curl -X PUT "http://localhost:8080/telecomaster/carreras/gitt/descripcion" \
      -H "Content-Type: application/json" \
      -d '{"descripcion": "Grado de 4 años en telecomunicaciones"}'
@@ -108,7 +108,7 @@ La API rest devuelve en consecuencia el siguiente json:
 }
 ```
 4. Borrar carrera
-```json
+```sh
 curl -X DELETE "http://localhost:8080/telecomaster/carreras/gitt" 
 //Tambien valdría el id en vez de gitt
 ```
