@@ -4,9 +4,9 @@ Siguiendo una idea relacionada con la práctica 2 (en mi caso era Telecomaster, 
 Las carreras se almacenan en un modelo con estructura similar a la siguiente:
 ```java
 public record ModeloCarrera(long id,
-                            @NotEmpty @Size(max=100) String nombre,
-                            @NotEmpty String descripcion,
-                            @NotEmpty String nivel) {
+                            @NotBlank @Size(max=100) String nombre,
+                            @NotBlank String descripcion,
+                            @NotBlank String nivel) {
 }
 ```
 

@@ -5,11 +5,11 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public record ModeloCarrera(long id,
-                            @NotEmpty(message = "Se requiere nombre") @Size(max=100, message = "Descripcion muy extensa")
+                            @NotBlank(message = "Se requiere nombre") @Size(max=100, message = "Descripcion muy extensa")
                             String nombre,
-                            @NotEmpty(message = "Se requiere descripcion")
+                            @NotBlank(message = "Se requiere descripcion")
                             String descripcion,
-                            @NotEmpty(message = "Se requiere nivel")
+                            @NotBlank(message = "Se requiere nivel")
                             String nivel) {
 
 }
