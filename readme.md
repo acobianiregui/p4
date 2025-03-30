@@ -5,8 +5,9 @@ Las carreras se almacenan en un modelo con estructura similar a la siguiente:
 ```java
 public record ModeloCarrera(long id,
                             @NotBlank @Size(max=100) String nombre,
+                            @NotBlank String especialidad,
                             @NotBlank String descripcion,
-                            @NotBlank String nivel) {
+                            @NotBlank String imagen) {
 }
 ```
 
@@ -17,10 +18,13 @@ A continuacion se muestra una tabla con todas las operaciones que contempla la A
 | **Función**                     | **Método** | **URL**                                      | **Descripción**                                               |
 |----------------------------------|-----------|----------------------------------------------|---------------------------------------------------------------|
 | **Añadir carrera**               | **POST**  | `/telecomaster/carreras`                            | Crea una nueva carrera, deberá cumplir las restriciones de ModeloCarrera |
-| **Obtener carrera**              | **GET**   | `/telecomaster/carreras/{objetivo}`         | Devuelve la información de una carrera específica según índice o nombre (cualquiera de los dos vale)           |
+| **Obtener carrera (ID)**              | **GET**   | `/telecomaster/carreras/{id}`         | Devuelve la información de una carrera específica según índice          |
+| **Obtener carreras por nombre**              | **GET**   | `/telecomaster/carreras/nombre/{nombre}`         | Devuelve la información de todas las carreras que tengan el mismo nombre (tendrá diferentes especialidades)         |
+| **Obtener carrera (nombre y especialidad)**              | **GET**   | `/telecomaster/carreras/{nombre}/{especialidad}`         | Devuelve la información de una carrera específica según índice          |
 | **Obtener todas las carreras**   | **GET**   | `/telecomaster/carreras`                    | Devuelve la lista de todas las carreras disponibles          |
-| **Actualizar descripcion**          | **PUT**   | `/telecomaster/carreras/{nombre}/descripcion`     | Actualiza la descripcion de una carrera en específico   |
-| **Eliminar carrera**          | **DELETE**   | `/telecomaster/carreras/{objetivo}`     | Elimina una carrera bien buscándola por id o por nombre (ambas funcionan)   |
+| **Actualizar descripcion**          | **PUT**   | `/telecomaster/carreras/{nombre}/{especialidad}/descripcion`     | Actualiza la descripcion de una carrera en específico   |
+| **Eliminar carrera (ID)**          | **DELETE**   | `/telecomaster/carreras/{id}`     | Elimina una carrera bien buscándola por id   |
+| **Eliminar carrera (nombre y especialidad)**          | **DELETE**   | `/telecomaster/carreras/{nombre}/{especialidad}`     | Elimina una carrera bien buscándola por id   |
 
 </div>
 
@@ -36,23 +40,29 @@ Por ejemplo, si hace un post vacío, la API devuelve el siguiente json:
     {
         "mensaje": "Se requiere nombre",
         "campo": "nombre",
-        "valor": ""
+        "valor": null
+    },
+    {
+        "mensaje": "Se requiere imagen (url)",
+        "campo": "imagen",
+        "valor": null
+    },
+    {
+        "mensaje": "Se requiere especialidad",
+        "campo": "especialidad",
+        "valor": null
     },
     {
         "mensaje": "Se requiere descripcion",
         "campo": "descripcion",
-        "valor": ""
-    },
-    {
-        "mensaje": "Se requiere nivel",
-        "campo": "nivel",
-        "valor": ""
+        "valor": null
     }
 ]
 ```
 
 
 ## Ejemplos
+NOTA: Omito las url para que no se vea pesado
 
 1. Introducir el grado de GITT
 
@@ -61,64 +71,78 @@ Comando bash equivalente a la acción en Postman
 curl -X POST "http://localhost:8080/telecomaster/carreras" \
      -H "Content-Type: application/json" \
      -d '{
-           "nombre": "Ingeniería de Telecomunicaciones",
-           "descripcion": "Carrera enfocada en redes, sistemas y comunicaciones",
-           "nivel": "Grado"
-         }'
+    "nombre" : "Teleco",
+    "especialidad": "Sistemas electrónicos",
+    "descripcion" : "Teleco orientado a los sistemas electronicos",
+    "imagen" : "(url)"
+}'
 ```
 El fetch devuelve el siguiente json:
 ```json
 {
-    "id": 1,
-    "nombre": "gitt",
-    "descripcion": "Grado en Ingenieria de Telecomunicaciones",
-    "nivel": "grado"
+    "id": 3,
+    "nombre": "Teleco",
+    "descripcion": "Teleco orientado a los sistemas electronicos",
+    "especialidad": "Sistemas electrónicos",
+    "imagen": "(url)"
 }
 ```
 2. Obtener una carrera 
 
 ```sh
-curl -X GET "http://tudominio.com/telecomaster/carreras/gitt" | jq
-//Tambien valdría poner 1 en vez de gitt
+curl -X GET "http://tudominio.com/telecomaster/carreras/nombre/GITT" | jq
+
 //El jq es para que devuelva "bonito" el json
 ```
 El resultado del fetch entonces es:
 
 ```json
-{
-    "id": 1,
-    "nombre": "gitt",
-    "descripcion": "Grado en Ingenieria de Telecomunicaciones",
-    "nivel": "grado"
-}
+[
+    {
+        "id": 1,
+        "nombre": "GITT",
+        "descripcion": "Grado universitario en Tecnologías de Telecomunicacion",
+        "especialidad": "Tecnologias de la informacion",
+        "imagen": "(url)"
+    },
+    {
+        "id": 2,
+        "nombre": "GITT",
+        "descripcion": "Grado universitario en Tecnologías de Telecomunicacion",
+        "especialidad": "Ingenieria biomedica",
+        "imagen": "(url)"
+    }
+]
 ```
 3. Actualizar carrera
 ```sh
 curl -X PUT "http://localhost:8080/telecomaster/carreras/gitt/descripcion" \
      -H "Content-Type: application/json" \
-     -d '{"descripcion": "Grado de 4 años en telecomunicaciones"}'
+     -d '{"descripcion": "Teleco-Bio"}'
 ```
 La API rest devuelve en consecuencia el siguiente json:
 ```json
 {
-    "id": 1,
-    "nombre": "gitt",
-    "descripcion": "Grado de 4 años en telecomunicaciones",
-    "nivel": "grado"
+    "id": 2,
+    "nombre": "GITT",
+    "descripcion": "Teleco-Bio",
+    "especialidad": "Ingenieria biomedica",
+    "imagen": "(url)"
 }
 ```
 4. Borrar carrera
 ```sh
-curl -X DELETE "http://localhost:8080/telecomaster/carreras/gitt" 
+curl -X DELETE "http://localhost:8080/telecomaster/carreras/GITT/Ingenieria biomedica" 
 //Tambien valdría el id en vez de gitt
 ```
 El servidor devuelve el siguiente json de confirmación:
 ```json
 {
-    "id": 1,
+    "id": 2,
     "nombre": null,
     "descripcion": null,
-    "nivel": null
+    "especialidad": null,
+    "imagen": null
 }
 ```
 

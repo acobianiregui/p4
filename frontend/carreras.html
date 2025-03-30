@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Carreras</title>
+    <link rel="stylesheet" href="carreras.css">
+    <script defer src="carreras.js"></script>
+</head>
+<body>
+    <header>
+    <h1>Gestor de Carreras</h1>
+    </header>
+    <h2>Fefw</h2>
+    <div id="listaCarreras" class="contenedor"></div>
+    
+    <label for="menuOpciones">Selecciona una opción:</label>
+    <select id="menuOpciones">
+        <option value="">--Seleccione--</option>
+        <option value="añadir">Añadir Carrera</option>
+        <option value="actualizar">Actualizar Descripción</option>
+        <option value="borrar">Borrar Carrera</option>
+    </select>
+
+    <section id="seccionAñadir" style="display: none;">
+        <h2>Añadir Carrera</h2>
+        <form id="formCarrera">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+            <label for="especialidad">Especialidad:</label>
+            <input type="text" id="especialidad" required>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" required></textarea>
+            <label for="imagen_url">URL de Imagen:</label>
+            <input type="text" id="imagen_url">
+            <button type="submit">Añadir</button>
+        </form>
+    </section>
+    
+    <section id="seccionActualizar" style="display: none;">
+        <h2>Actualizar Descripción</h2>
+        <form id="formActualizar">
+            <label for="nombreActualizar">Nombre:</label>
+            <input type="text" id="nombreActualizar" required>
+            <label for="especialidadActualizar">Especialidad:</label>
+            <input type="text" id="especialidadActualizar" required>
+            <label for="descripcionActualizar">Nueva Descripción:</label>
+            <textarea id="descripcionActualizar" required></textarea>
+            <button type="submit">Actualizar</button>
+        </form>
+    </section>
+
+    <section id="seccionBorrar" style="display: none;">
+        <h2>Borrar Carrera</h2>
+        <form id="formBorrar">
+            <label for="nombreBorrar">Nombre:</label>
+            <input type="text" id="nombreBorrar" required>
+            <label for="especialidadBorrar">Especialidad:</label>
+            <input type="text" id="especialidadBorrar" required>
+            <button type="submit">Borrar</button>
+        </form>
+    </section>
+</body>
+</html>
