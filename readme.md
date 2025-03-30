@@ -1,5 +1,7 @@
 # SOLUCION PRÁCTICA 4
-Siguiendo una idea relacionada con la práctica 2 (en mi caso era Telecomaster, información sobre teleco), se ha diseñadi una API rest que permita gestionar información sobre carreras universitarias.
+Siguiendo una idea relacionada con la práctica 2 (en mi caso era Telecomaster, información sobre teleco), se ha diseñado una API rest que permita gestionar información sobre carreras universitarias.
+
+En el directorio de <a href="./frontend/"> frontend </a> se puede encontrar la página donde se integra y se emplea la lógica de la API a diseñar.
 
 Las carreras se almacenan en un modelo con estructura similar a la siguiente:
 ```java
@@ -20,11 +22,11 @@ A continuacion se muestra una tabla con todas las operaciones que contempla la A
 | **Añadir carrera**               | **POST**  | `/telecomaster/carreras`                            | Crea una nueva carrera, deberá cumplir las restriciones de ModeloCarrera |
 | **Obtener carrera (ID)**              | **GET**   | `/telecomaster/carreras/{id}`         | Devuelve la información de una carrera específica según índice          |
 | **Obtener carreras por nombre**              | **GET**   | `/telecomaster/carreras/nombre/{nombre}`         | Devuelve la información de todas las carreras que tengan el mismo nombre (tendrá diferentes especialidades)         |
-| **Obtener carrera (nombre y especialidad)**              | **GET**   | `/telecomaster/carreras/{nombre}/{especialidad}`         | Devuelve la información de una carrera específica según índice          |
+| **Obtener carrera (nombre y especialidad)**              | **GET**   | `/telecomaster/carreras/{nombre}/{especialidad}`         | Devuelve la información de una carrera específica según nombre y especialidad         |
 | **Obtener todas las carreras**   | **GET**   | `/telecomaster/carreras`                    | Devuelve la lista de todas las carreras disponibles          |
 | **Actualizar descripcion**          | **PUT**   | `/telecomaster/carreras/{nombre}/{especialidad}/descripcion`     | Actualiza la descripcion de una carrera en específico   |
 | **Eliminar carrera (ID)**          | **DELETE**   | `/telecomaster/carreras/{id}`     | Elimina una carrera bien buscándola por id   |
-| **Eliminar carrera (nombre y especialidad)**          | **DELETE**   | `/telecomaster/carreras/{nombre}/{especialidad}`     | Elimina una carrera bien buscándola por id   |
+| **Eliminar carrera (nombre y especialidad)**          | **DELETE**   | `/telecomaster/carreras/{nombre}/{especialidad}`     | Elimina una carrera por nombre y especialidad   |
 
 </div>
 
